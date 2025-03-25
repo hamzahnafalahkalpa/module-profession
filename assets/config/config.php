@@ -10,10 +10,17 @@ return [
     'commands' => [
         ModuleProfessionCommands\InstallMakeCommand::class
     ],
-    'contracts' => [
-        'occupation'  => Contracts\Occupation::class,
-        'profession'  => Contracts\Profession::class,
-        'module_profession' => Contracts\ModuleProfession::class
+    'app' => [
+        'contracts' => [
+            //ADD YOUR CONTRACTS HERE
+            'occupation'  => Contracts\Occupation::class,
+            'profession'  => Contracts\Profession::class,
+            'module_profession' => Contracts\ModuleProfession::class
+        ],
+    ],
+    'libs' => [
+        'model' => 'Models',
+        'contract' => 'Contracts'
     ],
     'database' => [
         'models' => [
