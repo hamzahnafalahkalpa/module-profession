@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleProfession\Schemas;
 
-use Hanafalah\ModuleProfession\Contracts\Occupation as ContractsOccupation;
+use Hanafalah\ModuleProfession\Contracts\Schemas\Occupation as ContractsOccupation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

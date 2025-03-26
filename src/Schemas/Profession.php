@@ -3,7 +3,7 @@
 namespace Hanafalah\ModuleProfession\Schemas;
 
 use Hanafalah\LaravelSupport\Supports\PackageManagement;
-use Hanafalah\ModuleProfession\Contracts\Profession as ContractsProfession;
+use Hanafalah\ModuleProfession\Contracts\Schemas\Profession as ContractsProfession;
 use Hanafalah\ModuleProfession\Data\ProfessionData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
