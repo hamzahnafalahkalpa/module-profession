@@ -21,9 +21,7 @@ class ModuleProfessionServiceProvider extends BaseServiceProvider
                 '*',
                 'Services' => function () {
                     $this->binds([
-                        Contracts\ModuleProfession::class => new ModuleProfession,
-                        Contracts\Profession::class => new Schemas\Profession,
-                        Contracts\Occupation::class => new Schemas\Occupation
+                        Contracts\ModuleProfession::class => ModuleProfession::class
                     ]);
                 }
             ]);
