@@ -3,7 +3,8 @@
 namespace Hanafalah\ModuleProfession\Schemas;
 
 use Hanafalah\LaravelSupport\Supports\PackageManagement;
-use Hanafalah\ModuleProfession\Contracts\Profession as ContractsProfession;
+use Hanafalah\ModuleProfession\Contracts\Schemas\Profession as ContractsProfession;
+use Hanafalah\ModuleProfession\Data\ProfessionData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -18,11 +19,6 @@ class Profession extends PackageManagement implements ContractsProfession
     protected string $__entity = 'Profession';
     public static $profession_model;
 
-    protected array $__resources = [
-        'view' => ViewProfession::class,
-        'show' => ShowProfession::class
-    ];
-
     protected array $__cache = [
         'index' => [
             'name'     => 'profession',
@@ -31,64 +27,59 @@ class Profession extends PackageManagement implements ContractsProfession
         ]
     ];
 
-    public function getProfession(): mixed
-    {
+    protected function viewUsingRelation(): array{
+        return [];
+    }
+
+    protected function showUsingRelation(): array{
+        return [];
+    }
+
+    public function getProfession(): mixed{
         return static::$profession_model;
     }
 
-    public function prepareShowProfession(?Model $model = null): ?Model
-    {
-        $this->booting();
-
+    public function prepareShowProfession(?Model $model = null): ?Model{
         $model ??= $this->getProfession();
-        $id = request()->id;
-        if (!request()->has('id')) throw new \Exception('No id provided', 422);
-
-        if (!isset($model)) $model = $this->profession()->find($id);
+        if (!isset($model)){
+            $id = request()->id;
+            if (!isset($id)) throw new \Exception('No id provided', 422);
+            $model = $this->profession()->with($this->showUsingRelation())->find($id);
+        }else{
+            $model->load($this->showUsingRelation());
+        }
         return static::$profession_model = $model;
     }
 
-    public function showProfession(?Model $model = null): array
-    {
-        return $this->transforming($this->__resources['show'], fn() => $this->prepareShowProfession($model));
+    public function showProfession(?Model $model = null): array{
+        return $this->showEntityResource(fn() => $this->prepareShowProfession($model));
     }
 
-    public function prepareStoreProfession(?array $attributes = null): Model
-    {
-        $attributes ??= request()->all();
-
+    public function prepareStoreProfession(ProfessionData $profession_dto): Model{            
         $profession = $this->ProfessionModel()->updateOrCreate([
-            'id' => $attributes['id'] ?? null
-        ], [
-            'name' => $attributes['name'],
-            'flag' => $attributes['flag']
+            'name' => $profession_dto->name,
+            'flag' => $profession_dto->flag
         ]);
 
-        $price_component = $this->schemaContract('price_component');
-        $price_component->prepareStorePriceComponent($this->assocRequest(
-            'tariff_components',
-            ...[
-                'model_id'   => $profession->getKey(),
-                'model_type' => $profession->getMorphClass(),
-            ],
-        ));
-
-        static::$profession_model = $profession;
-        $profession->load('tariffComponents');
-        $this->flushTagsFrom('index');
-
-        return $profession;
+        // $this->schemaContract('price_component')->prepareStorePriceComponent($this->assocRequest(
+        //     'tariff_components',
+        //     ...[
+        //         'model_id'   => $profession->getKey(),
+        //         'model_type' => $profession->getMorphClass(),
+        //     ],
+        // ));
+        
+        $this->forgetTags('profession');
+        return static::$profession_model = $profession;
     }
 
-    public function storeProfession(): array
-    {
-        return $this->transaction(function () {
-            return $this->showProfession($this->prepareStoreProfession());
+    public function storeProfession(? ProfessionData $profession_dto = null): array{
+        return $this->transaction(function() use ($profession_dto) {
+            return $this->showProfession($this->prepareStoreProfession($profession_dto ?? $this->requestDTO(ProfessionData::class)));
         });
     }
 
-    public function prepareViewProfessionList(): Collection
-    {
+    public function prepareViewProfessionList(): Collection{
         return static::$profession_model = $this->cacheWhen(!$this->isSearch(), $this->__cache['index'], function () {
             $professions = $this->profession()->with('tariffComponents')->whereNull('parent_id')->orderBy('name', 'asc')->get();
             foreach ($professions as $profession) {
@@ -100,19 +91,11 @@ class Profession extends PackageManagement implements ContractsProfession
         });
     }
 
-    public function viewProfessionList(): array
-    {
-        return $this->transforming($this->__resources['view'], fn() => $this->prepareViewProfessionList());
+    public function viewProfessionList(): array{
+        return $this->viewEntityResource(fn()=>$this->prepareViewProfessionList());
     }
 
-    public function profession(mixed $conditionals = null): Builder
-    {
-        return $this->ProfessionModel()->conditionals($conditionals);
-    }
-
-    public function addOrChange(?array $attributes = []): self
-    {
-        $this->updateOrCreate($attributes);
-        return $this;
+    public function profession(mixed $conditionals = null): Builder{
+        return $this->ProfessionModel()->withParameters()->conditionals($this->mergeCondition($conditionals ?? []));
     }
 }
