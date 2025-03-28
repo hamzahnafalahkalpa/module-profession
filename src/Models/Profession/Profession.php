@@ -4,7 +4,7 @@ namespace Hanafalah\ModuleProfession\Models\Profession;
 
 use Hanafalah\LaravelSupport\Models\BaseModel;
 use Hanafalah\ModuleProfession\Enums\Profession\Flag;
-use Hanafalah\ModuleTransaction\Concerns\HasPriceComponent;
+use Hanafalah\ModulePayment\Concerns\HasPriceComponent;
 
 class Profession extends BaseModel
 {

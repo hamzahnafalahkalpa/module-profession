@@ -8,14 +8,10 @@ use Hanafalah\ModuleProfession\Data\ProfessionData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Hanafalah\ModuleProfession\Resources\Profession\ShowProfession;
-use Hanafalah\ModuleProfession\Resources\Profession\ViewProfession;
 use Hanafalah\ModuleTransaction\Schemas\PriceComponent;
 
 class Profession extends PackageManagement implements ContractsProfession
 {
-    protected array $__guard   = ['id', 'parent_id', 'name'];
-    protected array $__add     = ['name', 'flag'];
     protected string $__entity = 'Profession';
     public static $profession_model;
 
