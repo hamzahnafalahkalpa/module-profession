@@ -28,13 +28,16 @@ class Occupation extends Profession implements ContractsOccupation
         ]
     ];
 
-    public function getOccupation(): mixed
-    {
+    public function getOccupation(): mixed{
         return static::$occupation_model;
     }
 
-    public function showUsingRelation(): array
+    protected function viewUsingRelation(): array
     {
+        return [];
+    }
+
+    protected function showUsingRelation(): array{
         return [];
     }
 
