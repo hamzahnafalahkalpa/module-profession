@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 interface Occupation extends Profession
 {
     public function getOccupation(): mixed;
-    public function showUsingRelation(): array;
     public function prepareShowOccupation(?Model $model = null, ?array $attributes = null): Model;
     public function showOccupation(?Model $model = null): array;
     public function prepareStoreOccupation(?array $attributes = null): Model;
