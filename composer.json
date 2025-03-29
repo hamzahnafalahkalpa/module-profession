@@ -19,8 +19,8 @@
         }
     },
     "require": {
-        "hanafalah/laravel-support": "dev-main",
-        "hanafalah/module-transaction": "dev-main"
+        "hanafalah/laravel-support": "@dev",
+        "hanafalah/module-transaction": "@dev"
     },
     "minimum-stability": "dev",
     "prefer-stable": false
