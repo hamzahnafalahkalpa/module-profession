@@ -28,7 +28,7 @@ return new class extends Migration
         if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
                 $table->id();
-                $table->unsignedTinyInteger('flag')->nullable(false);
+                $table->enum('flag',array_column(Flag::cases(),'value'));
                 $table->string('name', 200)->nullable(false);
             });
 

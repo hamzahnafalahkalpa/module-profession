@@ -23,6 +23,6 @@ class ProfessionData extends Data{
         #[MapName('flag')]
         #[Numeric]
         #[In(Flag::cases())]
-        public string $flag
+        public ?string $flag = Flag::PROFESSION->value
     ){}
 }

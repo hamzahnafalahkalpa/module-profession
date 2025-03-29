@@ -2,9 +2,9 @@
 
 namespace Hanafalah\ModuleProfession\Enums\Profession;
 
-enum Flag: int
+enum Flag: string
 {
-    case OCCUPATION = 0;
-    case PROFESSION = 1;
-    case JOB_DESK   = 2;
+    case OCCUPATION = 'OCCUPATION';
+    case PROFESSION = 'PROFESSION';
+    case JOB_DESK   = 'JOB_DESK';
 }
