@@ -5,13 +5,14 @@ namespace Hanafalah\ModuleProfession\Models\Profession;
 use Hanafalah\LaravelSupport\Models\BaseModel;
 use Hanafalah\ModuleProfession\Enums\Profession\Flag;
 use Hanafalah\ModulePayment\Concerns\HasPriceComponent;
+use Hanafalah\ModuleProfession\Concerns\Relation\HasJobDesk;
 use Hanafalah\ModuleProfession\Resources\Profession\{
     ShowProfession, ViewProfession
 };
 
 class Profession extends BaseModel
 {
-    use HasPriceComponent;
+    use HasPriceComponent, HasJobDesk;
 
     public $timestamps  = false;
     protected $fillable = ['id', 'parent_id', 'flag', 'name'];
@@ -34,5 +35,9 @@ class Profession extends BaseModel
 
     public function getShowResource(){
         return ShowProfession::class;
+    }
+
+    public function childs(){
+        return $this->hasManyModel(get_class($this), static::getParentId())->where('flag',Flag::PROFESSION->value)->with(['childs']);
     }
 }

@@ -32,4 +32,8 @@ class Occupation extends Profession
     public function getShowResource(){
         return ShowOccupation::class;
     }
+
+    public function childs(){
+        return $this->hasManyModel(get_class($this), static::getParentId())->where('flag',Flag::OCCUPATION->value)->with(['childs']);
+    }
 }
