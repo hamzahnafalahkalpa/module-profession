@@ -58,8 +58,7 @@ class Occupation extends Profession implements ContractsOccupation
         return static::$occupation_model = $model;
     }
 
-    public function showOccupation(?Model $model = null): array
-    {
+    public function showOccupation(?Model $model = null): array{
         return $this->transforming($this->__resources['show'], function () use ($model) {
             return $this->prepareShowOccupation($model);
         });
