@@ -10,23 +10,21 @@ use Spatie\LaravelData\Attributes\Validation\In;
 use Spatie\LaravelData\Attributes\Validation\Numeric;
 
 class ProfessionData extends Data{
-    public function __construct(
-        #[MapInputName('id')]
-        #[MapName('id')]
-        public mixed $id = null,
+    #[MapInputName('id')]
+    #[MapName('id')]
+    public mixed $id = null;
 
-        #[MapInputName('parent_id')]
-        #[MapName('parent_id')]
-        public mixed $parent_id = null,
+    #[MapInputName('parent_id')]
+    #[MapName('parent_id')]
+    public mixed $parent_id = null;
 
-        #[MapInputName('name')]
-        #[MapName('name')]
-        public string $name,
+    #[MapInputName('name')]
+    #[MapName('name')]
+    public string $name;
 
-        #[MapInputName('flag')]
-        #[MapName('flag')]
-        #[Numeric]
-        #[In(Flag::cases())]
-        public ?string $flag = Flag::PROFESSION->value
-    ){}
+    #[MapInputName('flag')]
+    #[MapName('flag')]
+    #[Numeric]
+    #[In(Flag::cases())]
+    public ?string $flag = Flag::PROFESSION->value;
 }
