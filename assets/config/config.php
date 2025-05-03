@@ -2,8 +2,6 @@
 
 use Hanafalah\ModuleProfession\{
     Commands as ModuleProfessionCommands,
-    Models,
-    Contracts
 };
 
 return [
