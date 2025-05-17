@@ -3,13 +3,12 @@
 namespace Hanafalah\ModuleProfession\Data;
 
 use Hanafalah\LaravelSupport\Supports\Data;
+use Hanafalah\ModuleProfession\Contracts\Data\ProfessionData as DataProfessionData;
 use Hanafalah\ModuleProfession\Enums\Profession\Flag;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\In;
-use Spatie\LaravelData\Attributes\Validation\Numeric;
 
-class ProfessionData extends Data{
+class ProfessionData extends Data implements DataProfessionData{
     #[MapInputName('id')]
     #[MapName('id')]
     public mixed $id = null;
@@ -24,7 +23,5 @@ class ProfessionData extends Data{
 
     #[MapInputName('flag')]
     #[MapName('flag')]
-    #[Numeric]
-    #[In(Flag::cases())]
     public ?string $flag = Flag::PROFESSION->value;
 }

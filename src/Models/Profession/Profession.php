@@ -18,15 +18,26 @@ class Profession extends BaseModel
     protected $fillable = ['id', 'parent_id', 'flag', 'name'];
     protected static array $__flags = [];
 
-    protected static function booting(): void{
-        static::setFlags(Flag::PROFESSION->value);
-    }
-
     protected static function booted(): void{
         parent::booted();
         static::addGlobalScope('flag', function ($query) {
-            $query->flagIn(static::$__flags);
+            $query->flagIn(static::getFlag());
         });
+        static::creating(function ($query) {
+            $query->flag = static::getFlag();
+        });
+    }
+
+    public static function getFlag(): string{
+        return Flag::PROFESSION->value;
+    }
+
+    public function viewUsingRelation(): array{
+        return ['childs'];
+    }
+
+    public function showUsingRelation(): array{
+        return ['childs'];
     }
 
     public function getViewResource(){
@@ -38,6 +49,6 @@ class Profession extends BaseModel
     }
 
     public function childs(){
-        return $this->hasManyModel(get_class($this), static::getParentId())->where('flag',Flag::PROFESSION->value)->with(['childs']);
+        return $this->hasManyModel($this->getMorphClass(), static::getParentId())->withoutGlobalScopes()->with(['childs']);
     }
 }
