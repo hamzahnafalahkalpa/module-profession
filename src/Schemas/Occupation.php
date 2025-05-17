@@ -22,7 +22,7 @@ class Occupation extends Profession implements ContractsOccupation
 
     public function prepareStoreOccupation(OccupationData $occupation_dto): Model
     {
-        $model = parent::prepareStoreOccupation($occupation_dto);
+        $model = parent::prepareStoreProfession($occupation_dto);
         $this->forgetTags('occupation');
         return static::$occupation_model = $model;
     }

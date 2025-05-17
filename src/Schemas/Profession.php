@@ -24,6 +24,7 @@ class Profession extends PackageManagement implements ContractsProfession
 
     public function prepareStoreProfession(ProfessionData $profession_dto): Model{            
         $add = [
+            'parent_id' => $profession_dto->parent_id ?? null,
             'name' => $profession_dto->name,
             'flag' => $profession_dto->flag
         ];
@@ -34,6 +35,13 @@ class Profession extends PackageManagement implements ContractsProfession
             $create = [$add];
         }
         $profession = $this->usingEntity()->updateOrCreate(...$create);
+
+        if (isset($profession_dto->childs) && count($profession_dto->childs) > 0){
+            foreach ($profession_dto->childs as $child){
+                $child->parent_id = $profession->getKey();
+                $this->prepareStoreProfession($child);
+            }
+        }
 
         $this->forgetTags('profession');
         return static::$profession_model = $profession;
