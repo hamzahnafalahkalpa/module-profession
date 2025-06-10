@@ -13,14 +13,12 @@ class ViewProfession extends ApiResource
             'parent_id' => $this->parent_id,
             'name'      => $this->name,
             'childs' => $this->relationValidation('childs', function () {
-                $childs = $this->childs;
-                return $childs->transform(function ($child) {
-                    return new ShowProfession($child);
+                return $this->childs->transform(function ($child) {
+                    return $child->toViewApi();
                 });
             }),
             'tariff_components' => $this->relationValidation('tariffComponents', function () {
-                $tariffComponents = $this->tariffComponents;
-                return $tariffComponents->transform(function ($tariffComponent) {
+                return $this->tariffComponents->transform(function ($tariffComponent) {
                     return $tariffComponent->toViewApi();
                 });
             })

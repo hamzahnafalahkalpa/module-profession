@@ -13,16 +13,8 @@ class Occupation extends Profession
 {
     protected $table = 'professions';
 
-    protected static function booting(): void{
-        static::setFlags(Flag::OCCUPATION->value);
-    }
-
-    protected static function booted(): void{
-        parent::booted();
-
-        static::creating(function ($query) {
-            if (!isset($query->flag)) $query->flag = Flag::OCCUPATION->value;
-        });
+    public static function getFlag(): string{
+        return Flag::OCCUPATION->value;
     }
 
     public function getViewResource(){
