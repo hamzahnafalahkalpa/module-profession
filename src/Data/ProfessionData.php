@@ -30,4 +30,8 @@ class ProfessionData extends Data implements DataProfessionData{
     #[MapName('childs')]
     #[DataCollectionOf(ProfessionData::class)]
     public ?array $childs = [];
+
+    public static function before(array &$attributes){
+        $attributes['flag'] = Flag::PROFESSION->value;
+    }
 }

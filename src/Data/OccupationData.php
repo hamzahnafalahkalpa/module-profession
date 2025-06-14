@@ -11,4 +11,8 @@ class OccupationData extends ProfessionData implements DataOccupationData{
     #[MapInputName('flag')]
     #[MapName('flag')]
     public ?string $flag = Flag::OCCUPATION->value;
+
+    public static function before(array &$attributes){
+        $attributes['flag'] = Flag::OCCUPATION->value;
+    }
 }

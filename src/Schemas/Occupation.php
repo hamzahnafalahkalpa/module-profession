@@ -16,7 +16,7 @@ class Occupation extends Profession implements ContractsOccupation
         'index' => [
             'name'     => 'occupation',
             'tags'     => ['occupation', 'occupation-index'],
-            'forever'  => true
+            'duration' => 24 * 60
         ]
     ];
 
