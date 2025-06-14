@@ -10,8 +10,11 @@ class ViewProfession extends ApiResource
     {
         $arr = [
             'id'        => $this->id,
-            'parent_id' => $this->parent_id,
             'name'      => $this->name,
+            'parent_id' => $this->parent_id,
+            'parent'    => $this->relationValidation('parent', function () {
+                return $this->parent->toViewApi();
+            }),
             'childs' => $this->relationValidation('childs', function () {
                 return $this->childs->transform(function ($child) {
                     return $child->toViewApi();
