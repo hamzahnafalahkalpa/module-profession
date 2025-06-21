@@ -2,43 +2,16 @@
 
 namespace Hanafalah\ModuleProfession\Models\Profession;
 
-use Hanafalah\LaravelSupport\Models\BaseModel;
+use Hanafalah\LaravelSupport\Models\Unicode\Unicode;
 use Hanafalah\ModuleProfession\Enums\Profession\Flag;
 use Hanafalah\ModulePayment\Concerns\HasPriceComponent;
-use Hanafalah\ModuleProfession\Concerns\Relation\HasJobDesk;
 use Hanafalah\ModuleProfession\Resources\Profession\{
     ShowProfession, ViewProfession
 };
 
-class Profession extends BaseModel
+class Profession extends Unicode
 {
-    use HasPriceComponent, HasJobDesk;
-
-    public $timestamps  = false;
-    protected $fillable = ['id', 'parent_id', 'flag', 'name'];
-    protected static array $__flags = [];
-
-    protected static function booted(): void{
-        parent::booted();
-        static::addGlobalScope('flag', function ($query) {
-            $query->flagIn(static::getFlag());
-        });
-        static::creating(function ($query) {
-            $query->flag = static::getFlag();
-        });
-    }
-
-    public static function getFlag(): string{
-        return Flag::PROFESSION->value;
-    }
-
-    public function viewUsingRelation(): array{
-        return ['childs'];
-    }
-
-    public function showUsingRelation(): array{
-        return ['childs'];
-    }
+    protected $table = 'unicodes';
 
     public function getViewResource(){
         return ViewProfession::class;

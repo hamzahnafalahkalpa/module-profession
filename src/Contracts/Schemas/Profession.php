@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleProfession\Contracts\Schemas;
 
-use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\Schemas\Unicode;
 use Hanafalah\ModuleProfession\Contracts\Data\ProfessionData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method array viewProfessionPaginate(?PaginateData $paginate_dto = null)
  * @method array storeProfession(?ProfessionData $profession_dto = null)
  */
-interface Profession extends DataManagement
+interface Profession extends Unicode
 {
     public function prepareStoreProfession(ProfessionData $profession_dto): Model;
     public function profession(mixed $conditionals = null): Builder;

@@ -2,4 +2,4 @@
 
 namespace Hanafalah\ModuleProfession\Contracts\Data;
 
-interface JobDeskData {}
+interface JobDeskData extends OccupationData {}

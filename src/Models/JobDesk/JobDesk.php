@@ -3,16 +3,16 @@
 namespace Hanafalah\ModuleProfession\Models\JobDesk;
 
 use Hanafalah\ModuleProfession\{
-    Models\Profession\Profession,
     Enums\Profession\Flag
 };
+use Hanafalah\ModuleProfession\Models\Occupation\Occupation;
 use Hanafalah\ModuleProfession\Resources\JobDesk\{
     ViewJobDesk, ShowJobDesk
 };
 
-class JobDesk extends Profession
+class JobDesk extends Occupation
 {
-    protected $table = 'professions';
+    protected $table = 'unicodes';
 
     protected static function booting(): void{
         static::setFlags(Flag::JOB_DESK->value);

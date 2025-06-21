@@ -11,7 +11,7 @@ use Hanafalah\ModuleProfession\Resources\Occupation\ViewOccupation;
 
 class Occupation extends Profession
 {
-    protected $table = 'professions';
+    protected $table = 'unicodes';
 
     public static function getFlag(): string{
         return Flag::OCCUPATION->value;

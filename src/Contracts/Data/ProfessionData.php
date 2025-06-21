@@ -2,4 +2,6 @@
 
 namespace Hanafalah\ModuleProfession\Contracts\Data;
 
-interface ProfessionData {}
+use Hanafalah\LaravelSupport\Contracts\Data\UnicodeData;
+
+interface ProfessionData extends UnicodeData {}

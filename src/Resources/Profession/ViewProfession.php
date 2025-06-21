@@ -2,31 +2,14 @@
 
 namespace Hanafalah\ModuleProfession\Resources\Profession;
 
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\LaravelSupport\Resources\Unicode\ViewUnicode;
 
-class ViewProfession extends ApiResource
+class ViewProfession extends ViewUnicode
 {
     public function toArray(\Illuminate\Http\Request $request): array
     {
-        $arr = [
-            'id'        => $this->id,
-            'name'      => $this->name,
-            'parent_id' => $this->parent_id,
-            'parent'    => $this->relationValidation('parent', function () {
-                return $this->parent->toViewApi();
-            }),
-            'childs' => $this->relationValidation('childs', function () {
-                return $this->childs->transform(function ($child) {
-                    return $child->toViewApi();
-                });
-            }),
-            'tariff_components' => $this->relationValidation('tariffComponents', function () {
-                return $this->tariffComponents->transform(function ($tariffComponent) {
-                    return $tariffComponent->toViewApi();
-                });
-            })
-        ];
-
+        $arr = [];
+        $arr = $this->mergeArray(parent::toArray($request),$arr);
         return $arr;
     }
 }
