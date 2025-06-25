@@ -3,8 +3,6 @@
 namespace Hanafalah\ModuleProfession\Models\Profession;
 
 use Hanafalah\LaravelSupport\Models\Unicode\Unicode;
-use Hanafalah\ModuleProfession\Enums\Profession\Flag;
-use Hanafalah\ModulePayment\Concerns\HasPriceComponent;
 use Hanafalah\ModuleProfession\Resources\Profession\{
     ShowProfession, ViewProfession
 };
