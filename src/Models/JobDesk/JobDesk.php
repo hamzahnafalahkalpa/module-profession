@@ -2,29 +2,14 @@
 
 namespace Hanafalah\ModuleProfession\Models\JobDesk;
 
-use Hanafalah\ModuleProfession\{
-    Models\Profession\Profession,
-    Enums\Profession\Flag
-};
+use Hanafalah\ModuleProfession\Models\Occupation\Occupation;
 use Hanafalah\ModuleProfession\Resources\JobDesk\{
     ViewJobDesk, ShowJobDesk
 };
 
-class JobDesk extends Profession
+class JobDesk extends Occupation
 {
-    protected $table = 'professions';
-
-    protected static function booting(): void{
-        static::setFlags(Flag::JOB_DESK->value);
-    }
-
-    protected static function booted(): void{
-        parent::booted();
-
-        static::creating(function ($query) {
-            if (!isset($query->flag)) $query->flag = Flag::JOB_DESK->value;
-        });
-    }
+    protected $table = 'unicodes';
 
     public function getViewResource(){
         return ViewJobDesk::class;
@@ -32,9 +17,5 @@ class JobDesk extends Profession
 
     public function getShowResource(){
         return ShowJobDesk::class;
-    }
-
-    public function childs(){
-        return $this->hasManyModel('JobDesk','parent_id')->where('flag',Flag::JOB_DESK->value);
     }
 }

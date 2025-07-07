@@ -2,15 +2,15 @@
 
 namespace Hanafalah\ModuleProfession\Resources\Profession;
 
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\LaravelSupport\Resources\Unicode\ShowUnicode;
 
 class ShowProfession extends ViewProfession
 {
     public function toArray(\Illuminate\Http\Request $request): array
     {
         $arr = [];
-        $arr = array_merge(parent::toArray($request), $arr);
-
+        $show = $this->resolveNow(new ShowUnicode($this));
+        $arr = $this->mergeArray(parent::toArray($request), $show,$arr);
         return $arr;
     }
 }

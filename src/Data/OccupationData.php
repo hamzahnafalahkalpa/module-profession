@@ -2,31 +2,11 @@
 
 namespace Hanafalah\ModuleProfession\Data;
 
-use Hanafalah\LaravelSupport\Supports\Data;
-use Hanafalah\ModuleProfession\Enums\Profession\Flag;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\In;
-use Spatie\LaravelData\Attributes\Validation\Numeric;
+use Hanafalah\ModuleProfession\Contracts\Data\OccupationData as DataOccupationData;
 
-class ProfessionData extends Data{
-    public function __construct(
-        #[MapInputName('id')]
-        #[MapName('id')]
-        public mixed $id = null,
-
-        #[MapInputName('parent_id')]
-        #[MapName('parent_id')]
-        public mixed $parent_id = null,
-
-        #[MapInputName('name')]
-        #[MapName('name')]
-        public string $name,
-
-        #[MapInputName('flag')]
-        #[MapName('flag')]
-        #[Numeric]
-        #[In(Flag::cases())]
-        public ?string $flag = Flag::PROFESSION->value
-    ){}
+class OccupationData extends ProfessionData implements DataOccupationData{
+    public static function before(array &$attributes){
+        $attributes['flag'] ??= 'Occupation';
+        parent::before($attributes);
+    }
 }
