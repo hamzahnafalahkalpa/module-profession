@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class JobDesk extends Occupation implements ContractsJobDesk
 {
     protected string $__entity = 'JobDesk';
-    public static $job_desk_model;
+    public $job_desk_model;
 
     protected array $__cache = [
         'index' => [
@@ -22,7 +22,7 @@ class JobDesk extends Occupation implements ContractsJobDesk
 
     public function prepareStoreJobDesk(JobDeskData $job_desk_dto): Model{
         $occupation = $this->prepareStoreOccupation($job_desk_dto);
-        return static::$job_desk_model = $occupation;
+        return $this->job_desk_model = $occupation;
     }
 
     public function jobDesk(mixed $conditionals = null): Builder{

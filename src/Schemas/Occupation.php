@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Occupation extends Profession implements ContractsOccupation
 {
     protected string $__entity = 'Occupation';
-    public static $occupation_model;
+    public $occupation_model;
 
     protected array $__cache = [
         'index' => [
@@ -22,7 +22,7 @@ class Occupation extends Profession implements ContractsOccupation
 
     public function prepareStoreOccupation(OccupationData $occupation_dto): Model{
         $model = parent::prepareStoreProfession($occupation_dto);
-        return static::$occupation_model = $model;
+        return $this->occupation_model = $model;
     }
 
     public function occupation(mixed $conditionals = null): Builder{
