@@ -11,15 +11,7 @@ class Profession extends Unicode
 {
     protected $table = 'unicodes';
 
-    public function getViewResource(){
-        return ViewProfession::class;
-    }
-
-    public function getShowResource(){
-        return ShowProfession::class;
-    }
-
-    public function childs(){
-        return $this->hasManyModel($this->getMorphClass(), static::getParentId())->withoutGlobalScopes()->with(['childs']);
-    }
+    // public function childs(){
+    //     return $this->hasManyModel($this->getMorphClass(), static::getParentId())->withoutGlobalScopes()->with(['childs']);
+    // }
 }
